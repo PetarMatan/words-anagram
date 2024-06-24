@@ -46,19 +46,6 @@ class AnagramServiceTest {
         BDDAssertions.then(actual).isInstanceOf(EmptyWordException.class);
     }
 
-    /*@Test
-    void shouldCheckIsAnagramGivenTooManyArguments() {
-        // given
-        var anagramResolver = new AnagramService();
-        String[] input = {"isAnagram", "test", "teeess", "aaa"};
-
-        // when
-        var actual = catchThrowable(() -> anagramResolver.checkIsAnagram(input));
-
-        // then
-        BDDAssertions.then(actual).isInstanceOf(InvalidArgumentsException.class);
-    }*/ //todo: expand anagram cli service test
-
     @Test
     void shouldFindAllAnagramsGivenValidInput() {
         // given
@@ -84,20 +71,6 @@ class AnagramServiceTest {
         // then
         BDDAssertions.then(actual).isEmpty();
     }
-
-    /*@Test
-    void shouldNotFindAnagramsGivenTooManyArguments() {
-        // given
-        var anagramResolver = new AnagramService();
-        anagramResolver.checkIsAnagram("test", "estt");
-        String[] findAnagramsInput = {"findAllAnagrams", "coding", "test"};
-
-        // when
-        var actual = catchThrowable(() -> anagramResolver.findAllAnagrams(findAnagramsInput));
-
-        // then
-        BDDAssertions.then(actual).isInstanceOf(InvalidArgumentsException.class);
-    }*/ //todo: move to cli service test
 
     @Test
     void shouldNotFindAnagramsGivenTooFewArguments() {
