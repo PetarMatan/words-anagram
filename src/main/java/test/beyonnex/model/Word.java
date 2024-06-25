@@ -1,18 +1,24 @@
 package test.beyonnex.model;
 
 import test.beyonnex.exceptions.EmptyWordException;
+import test.beyonnex.exceptions.WordSizeExceededException;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Word {
 
+    public static final int MAX_TEXT_LENGTH = 100;
     private final String text;
     private Map<Character, Integer> histogram;
 
     public Word(String text) {
         if (text == null || text.isEmpty()) {
             throw new EmptyWordException();
+        }
+
+        if (text.length() > MAX_TEXT_LENGTH) {
+            throw new WordSizeExceededException();
         }
 
         this.text = text.toLowerCase();
@@ -25,9 +31,9 @@ public class Word {
         }
 
         return this.histogram.entrySet().stream()
-                .filter(entry -> !word.histogram.get(entry.getKey()).equals(entry.getValue()))
-                .findAny()
-                .isEmpty();
+                             .filter(entry -> !word.histogram.get(entry.getKey()).equals(entry.getValue()))
+                             .findAny()
+                             .isEmpty();
     }
 
     @Override
