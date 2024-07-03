@@ -2,8 +2,7 @@ package test.beyonnex;
 
 import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.Test;
-import test.beyonnex.exceptions.EmptyWordException;
-import test.beyonnex.exceptions.WordSizeExceededException;
+import test.beyonnex.exceptions.*;
 import test.beyonnex.model.Word;
 import test.beyonnex.service.AnagramService;
 
@@ -101,5 +100,30 @@ class AnagramServiceTest {
 
         // then
         BDDAssertions.then(actual).isInstanceOf(EmptyWordException.class);
+    }
+
+    @Test
+    void shouldThrowExceptionGivenInvalidCharacterWhenIsAnagramCheck() {
+        // given
+        var anagramResolver = new AnagramService();
+
+        // when
+        var actual = catchThrowable(() -> anagramResolver.checkIsAnagram("test", "es!t"));
+
+        // then
+        BDDAssertions.then(actual).isInstanceOf(InvalidCharacterException.class);
+    }
+
+    @Test
+    void shouldThrowExceptionGivenInvalidCharacterWhenFindAllAnagrasCheck() {
+        // given
+        var anagramResolver = new AnagramService();
+        anagramResolver.checkIsAnagram("test", "estt");
+
+        // when
+        var actual = catchThrowable(() -> anagramResolver.findAllAnagrams("test!"));
+
+        // then
+        BDDAssertions.then(actual).isInstanceOf(InvalidCharacterException.class);
     }
 }
